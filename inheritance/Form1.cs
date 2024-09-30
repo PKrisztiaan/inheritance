@@ -18,6 +18,13 @@ namespace inheritance
             InitializeComponent();
             db = new databaseHandler();
             db.readAll();
+            Car oneCar = new Car();
+            oneCar.color = "piros";
+            oneCar.hp = 500;
+            oneCar.make = "Vw";
+            oneCar.model = "Bogár";
+            oneCar.year = 1973;
+            db.AddOne(oneCar);
         }
     }
 }

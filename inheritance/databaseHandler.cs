@@ -11,6 +11,7 @@ namespace inheritance
     public class databaseHandler
     {
         MySqlConnection connection;
+        string tableName = "cars";
         public  databaseHandler()
         {
             string username = "root";
@@ -20,7 +21,41 @@ namespace inheritance
             string connectionString = $"user ={username};password={password};host={host};database={dbName}";
             connection = new MySqlConnection(connectionString);
         }
-
+        public void AddOne(Car oneCar)
+        {
+            try
+            {
+                connection.Open();
+                string query = $"INSERT INTO {tableName} (make,model,color,year,power) values('{oneCar.make}','{oneCar.model}','{oneCar.color}','{oneCar.year}','{oneCar.hp}')";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.ExecuteNonQuery();
+                command.Dispose();
+                connection.Close();
+                MessageBox.Show("sikerült hozzáadni");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error:");
+            }
+        }
+        public void DeleteOne(Car oneCar)
+        {
+            try
+            {
+                connection.Open();
+                string query = $"Delete from {tableName} where id = {oneCar.id}";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.ExecuteNonQuery();
+                command.Dispose();
+                connection.Close();
+                MessageBox.Show("Sikerült törölni");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error:");
+                 
+            }
+        }
         public void readAll()
         {
             try
